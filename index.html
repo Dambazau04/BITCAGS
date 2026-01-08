@@ -23,9 +23,15 @@ h2{color:var(--primary);margin-bottom:15px;border-left:6px solid var(--secondary
 input[type=text], input[type=password]{width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid #d1d5db;}
 button{width:100%;padding:14px;font-size:16px;font-weight:600;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border:none;border-radius:40px;cursor:pointer;margin-top:20px;}
 button:hover{opacity:.9}
-#quizContainer,#resultBox,#timer{display:none;}
+#quizContainer,#resultBox{display:none;}
 .question{background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:15px;margin-bottom:15px;}
 .options label{display:block;margin-top:6px;cursor:pointer;}
+
+/* Timer Bar */
+#timerContainer{position:sticky;top:0;background:#1e40af;color:white;font-weight:700;padding:12px 20px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 5px 15px rgba(0,0,0,.1);margin-bottom:20px;z-index:100;}
+#timerContainer span{font-size:20px;}
+
+/* Premium Result Card */
 #resultBox{margin-top:30px;padding:30px;border-radius:20px;background:linear-gradient(135deg,#ffffff,#f3f4f6);text-align:center;box-shadow:0 20px 40px rgba(0,0,0,.2);position:relative;}
 #resultBox h2{font-size:26px;color:var(--primary);margin-bottom:20px;font-weight:700;}
 .score{font-size:56px;font-weight:700;color:var(--success);margin-top:10px;}
@@ -36,8 +42,7 @@ button:hover{opacity:.9}
 .qrcode img{width:80px;height:80px;}
 .print-btn{margin-top:20px;background:var(--primary);padding:12px 20px;border-radius:30px;cursor:pointer;font-size:16px;color:white;}
 footer{text-align:center;padding:20px;font-size:13px;opacity:.7;}
-#timer{font-size:20px;font-weight:600;color:var(--danger);margin-bottom:15px;text-align:right;}
-@media(max-width:600px){header h1{font-size:22px} .instructor{flex-direction:column;align-items:center;} .qrcode img{margin-top:15px;}}
+@media(max-width:600px){header h1{font-size:22px} .instructor{flex-direction:column;align-items:center;} .qrcode img{margin-top:15px;} #timerContainer{flex-direction:column;gap:10px;text-align:center;}}
 @media print{body *{visibility:hidden}#resultBox, #resultBox *{visibility:visible}#resultBox{position:absolute;left:0;top:0;width:100%}}
 </style>
 </head>
@@ -46,6 +51,7 @@ footer{text-align:center;padding:20px;font-size:13px;opacity:.7;}
 <h1>BITCAGS ICT TRAINING</h1>
 <p>HTML & CSS Computer Based Test (CBT)</p>
 </header>
+
 <div class="container" id="loginContainer">
 <h2>Login</h2>
 <input type="text" id="loginEmail" placeholder="Email" required>
@@ -55,10 +61,8 @@ footer{text-align:center;padding:20px;font-size:13px;opacity:.7;}
 </div>
 
 <div class="container" id="quizContainer">
-<h2>Student Information</h2>
 <p id="studentInfo"></p>
-<div id="timer">Time Left: <span id="timeLeft">25:00</span></div>
-<h2>Objective Questions</h2>
+<div id="timerContainer">Time Left: <span id="timeLeft">25:00</span></div>
 <form id="quizForm">
 <div id="questionsContainer"></div>
 <button type="submit">Submit Exam</button>
@@ -80,13 +84,14 @@ footer{text-align:center;padding:20px;font-size:13px;opacity:.7;}
 </div>
 
 <footer>BITCAGS ICT Training © 2026</footer>
+
 <script>
 const users = [
   {email:'ibrahimasmauyusuf09@gmail.com',password:'Bitcags2026',name:'Asma\'u Ibrahim'},
-  {email:'dambazaualiyu@gmail.com',password:'Habeeb@1',name:'Aliyu Bashir Lawan'}
+  {email:'dambazaualiyu@gmail.com',password:'Habeeb@1',name:'Aliyu Bashir Lawan'},
+  {email:'dambazaualiy@gmail.com',password:'Habeeb@1',name:'Aliyu Bashir Lawan'}
 ];
 const quizTakenKey='BITCAGS_CBT_TAKEN';
-
 const questions=[{q:'1. Which HTML tag is used for the main content of a page?', a:['main','section','aside','article'],'c':'A'},
 {q:'2. Which CSS property changes the background color of an element?', a:['background-color','color','border-color','font-color'],'c':'A'},
 {q:'3. What does <a href="#"> do?', a:['Creates a hyperlink','Adds an image','Inserts a paragraph','Creates a button'],'c':'A'},
