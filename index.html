@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BITCAGS ICT Training – HTML & CSS CBT</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#4f46e5;
+  --secondary:#ec4899;
+  --success:#16a34a;
+  --danger:#dc2626;
+  --bg:#f1f5f9;
+  --card:#ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:#111827;}
+header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:30px 15px;text-align:center;}
+header h1{font-size:28px;font-weight:700}header p{opacity:.9}
+.container{max-width:1000px;margin:30px auto;background:var(--card);padding:25px;border-radius:16px;box-shadow:0 20px 40px rgba(0,0,0,.08);}
+h2{color:var(--primary);margin-bottom:15px;border-left:6px solid var(--secondary);padding-left:10px;}
+.question{background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:15px;margin-bottom:15px;}
+.options label{display:block;margin-top:6px;cursor:pointer;}
+input[type=text]{width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid #d1d5db;}
+button{width:100%;padding:14px;font-size:16px;font-weight:600;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border:none;border-radius:40px;cursor:pointer;margin-top:20px;}
+button:hover{opacity:.9}
+#resultBox{display:none;margin-top:30px;padding:25px;border-radius:16px;background:linear-gradient(135deg,#ecfeff,#fdf4ff);text-align:center;box-shadow:0 15px 35px rgba(0,0,0,.1);}
+.score{font-size:48px;font-weight:700;color:var(--success);}
+.grade{font-size:22px;margin-top:10px;font-weight:600;}
+.message{font-size:18px;margin-top:15px;}
+.print-btn{margin-top:20px;background:var(--success);padding:12px 20px;border-radius:30px;cursor:pointer;font-size:16px;}
+footer{text-align:center;padding:20px;font-size:13px;opacity:.7;}
+@media(max-width:600px){header h1{font-size:22px}}
+@media print{body *{visibility:hidden}#resultBox, #resultBox *{visibility:visible}#resultBox{position:absolute;left:0;top:0;width:100%}}
+</style>
+</head>
+<body>
+<header>
+<h1>BITCAGS ICT TRAINING</h1>
+<p>HTML & CSS Computer Based Test (CBT)</p>
+</header>
+<div class="container">
+<h2>Student Information</h2>
+<input type="text" id="studentName" placeholder="Full Name" required>
+<input type="text" id="regNo" placeholder="Registration Number" required>
+<h2>Objective Questions</h2>
+<form id="quizForm">
+<div id="questionsContainer"></div>
+<button type="submit">Submit Exam</button>
+</form>
+<div id="resultBox">
+<h2>Examination Result</h2>
+<p><strong>Name:</strong> <span id="rName"></span></p>
+<p><strong>Reg No:</strong> <span id="rReg"></span></p>
+<div class="score" id="score"></div>
+<div class="grade" id="grade"></div>
+<div class="message" id="message"></div>
+<button class="print-btn" onclick="window.print()">Print Result</button>
+</div>
+</div>
+<footer>BITCAGS ICT Training © 2026</footer>
+<script>
+const questions=[
+{q:'1. Which HTML tag is used for the main content of a page?', a:['main','section','aside','article'],'c':'A'},
+{q:'2. Which CSS property changes the background color of an element?', a:['background-color','color','border-color','font-color'],'c':'A'},
+{q:'3. What does <a href="#"> do?', a:['Creates a hyperlink','Adds an image','Inserts a paragraph','Creates a button'],'c':'A'},
+{q:'4. Which CSS property aligns text to the center?', a:['text-align:center','align:center','vertical-align:center','justify-content:center'],'c':'A'},
+{q:'5. Which tag is used to define a table row?', a:['tr','td','th','table'],'c':'A'},
+{q:'6. Which tag defines an unordered list?', a:['ul','ol','li','dl'],'c':'A'},
+{q:'7. Which property sets the font size?', a:['font-weight','font-style','font-size','text-size'],'c':'C'},
+{q:'8. How do you insert an image in HTML?', a:['img src','image src','picture','src img'],'c':'A'},
+{q:'9. Which CSS property changes text color?', a:['text-color','color','font-color','fg-color'],'c':'B'},
+{q:'10. Which tag defines a table header?', a:['th','td','tr','thead'],'c':'A'},
+{q:'11. Which tag defines a paragraph?', a:['p','para','paragraph','text'],'c':'A'},
+{q:'12. How to make text bold in HTML?', a:['b','strong','bold','all'],'c':'B'},
+{q:'13. Which CSS property controls margin?', a:['padding','margin','border','space'],'c':'B'},
+{q:'14. Which HTML tag adds a line break?', a:['br','break','lb','hr'],'c':'A'},
+{q:'15. Which property sets element width?', a:['width','size','length','dimension'],'c':'A'},
+{q:'16. How to create a checkbox?', a:['input type="checkbox"','check','input check','box'],'c':'A'},
+{q:'17. Which tag defines an ordered list?', a:['ol','ul','li','dl'],'c':'A'},
+{q:'18. Which CSS property controls spacing inside element?', a:['padding','margin','spacing','gap'],'c':'A'},
+{q:'19. Which tag is used for emphasized text?', a:['em','strong','i','b'],'c':'A'},
+{q:'20. How to comment in HTML?', a:['<!-- -->','//','/* */','{}'],'c':'A'},
+{q:'21. Which tag creates a button?', a:['button','input','submit','btn'],'c':'A'},
+{q:'22. Which CSS property changes font family?', a:['font-style','font-weight','font-family','text-style'],'c':'C'},
+{q:'23. Which tag creates a link to CSS file?', a:['link','css','style','href'],'c':'A'},
+{q:'24. Which tag defines a header section?', a:['header','head','top','title'],'c':'A'},
+{q:'25. Which tag represents a section?', a:['section','div','aside','article'],'c':'A'},
+{q:'26. How to create an input field?', a:['input type="text"','textbox','field','text'],'c':'A'},
+{q:'27. Which CSS property sets border color?', a:['border-color','color','border-style','border'],'c':'A'},
+{q:'28. Which tag defines a footer section?', a:['footer','foot','bottom','section'],'c':'A'},
+{q:'29. Which tag defines an article?', a:['article','div','section','aside'],'c':'A'},
+{q:'30. Which property changes element height?', a:['height','size','length','dimension'],'c':'A'},
+{q:'31. Which tag defines an image?', a:['img','image','picture','src'],'c':'A'},
+{q:'32. Which tag defines a list item?', a:['li','ul','ol','dl'],'c':'A'},
+{q:'33. Which tag creates a division?', a:['div','section','article','aside'],'c':'A'},
+{q:'34. Which CSS property sets display mode?', a:['display','position','visibility','layout'],'c':'A'},
+{q:'35. How to make text italic?', a:['i','italic','em','b'],'c':'C'},
+{q:'36. How to add a horizontal line?', a:['hr','line','break','br'],'c':'A'},
+{q:'37. Which tag adds metadata?', a:['meta','head','title','link'],'c':'A'},
+{q:'38. Which CSS property sets float?', a:['float','position','display','align'],'c':'A'},
+{q:'39. Which tag defines a navigation section?', a:['nav','menu','ul','header'],'c':'A'},
+{q:'40. Which tag represents side content?', a:['aside','section','div','article'],'c':'A'}
+];
+
+const container=document.getElementById('questionsContainer');
+questions.forEach((item,i)=>{
+  const div=document.createElement('div');
+  div.className='question';
+  let opts='';
+  ['A','B','C','D'].forEach((l,j)=>{opts+=`<label><input type="radio" name="q${i+1}" value="${l}"> ${item.a[j]}</label>`});
+  div.innerHTML=`<p>${item.q}</p><div class="options">${opts}</div>`;
+  container.appendChild(div);
+});
+
+document.getElementById('quizForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  let score=0;
+  questions.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i+1}"]:checked`);
+    if(sel && sel.value===q.c) score++;
+  });
+  const percent=Math.round(score/questions.length*100);
+  let grade='',msg='';
+  if(percent>=70){grade='Excellent'; msg='Outstanding performance!'}
+  else if(percent>=50){grade='Good'; msg='Good job! Improve further.'}
+  else if(percent>=40){grade='Pass'; msg='You passed, revise more.'}
+  else{grade='Fail'; msg='You did not pass, study hard!'}
+  document.getElementById('rName').textContent=document.getElementById('studentName').value;
+  document.getElementById('rReg').textContent=document.getElementById('regNo').value;
+  document.getElementById('score').textContent=`${percent}%`;
+  document.getElementById('grade').textContent=`Grade: ${grade}`;
+  document.getElementById('message').textContent=msg;
+  document.getElementById('resultBox').style.display='block';
+  window.scrollTo(0,document.body.scrollHeight);
+});
+</script>
+</body>
+</html>
